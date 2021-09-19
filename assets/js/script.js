@@ -17,6 +17,7 @@ function displaySchedule(date) {
 
     for (let i = 0; i < 9; i++) {
 
+        //issue - unlimited amount of rows can be entered. undesired. 
         const rowDisplay = $('<div>').addClass('row').attr('id', i); 
         const hourBlock = $('<p>').addClass('col-1 hour').text(date.format('h a')).attr('id', i);
         const textBox = $('<textarea>').addClass('col-10 event textarea').attr('id',  'text' + [i]);
@@ -32,7 +33,7 @@ function displaySchedule(date) {
         
         date.add(1, 'hour');
         
-//issue where the correct hour block is not displaying green. currently 1 hour behind
+//issue - the correct hour block is not displaying green. currently 1 hour behind
         if (today.isBefore(date, 'hour')) {
             textBox.addClass('future');
         } else if (today.isAfter(date, 'hour')) {
@@ -41,7 +42,6 @@ function displaySchedule(date) {
             textBox.addClass('present');
         }        
     }
-    //check local storage for existing data
 
     function displayInputs() {
         for (let i = 0; i < 9; i++) {
@@ -55,8 +55,7 @@ function displaySchedule(date) {
 
         localStorage.setItem($(this)[0].previousElementSibling.id, $(this)[0].previousElementSibling.value);
     }
-    //save any new input to local storage
-    //if there is a click on a button - take the value of its nearest textarea sibling - and save it to local storage
+
     $('.saveBtn').on('click', addInputs);
     displayInputs();
 }
@@ -68,9 +67,4 @@ $(window).on("load", displaySchedule());
 
 setInterval(updateTime, 1000);
 
-
-
-//clicking a timeblock allows an input
-//event listener on row divs, buttons. if click save text area content to local storage with id = i
-//saving an input also saves it to local storage
-//refreshing the page, saved events persist
+//todo - add clear all button to bottom. - add clear block option to end of row
