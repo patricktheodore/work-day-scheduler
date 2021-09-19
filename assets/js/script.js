@@ -24,14 +24,16 @@ function displaySchedule(date) {
         //issue - unlimited amount of rows can be entered. undesired. 
         const rowDisplay = $('<div>').addClass('row').attr('id', i); 
         const hourBlock = $('<p>').addClass('col-1 hour').text(date.format('h a')).attr('id', i);
-        const textBox = $('<textarea>').addClass('col-10 event textarea').attr('id',  'text' + [i]);
+        const textBox = $('<textarea>').addClass('col-9 event textarea').attr('id',  'text' + [i]);
         const saveBtn = $('<button>').addClass('col-1 saveBtn').text('save').attr('id', i);
-        
+        const deleteBtn = $('<button>').addClass('col-1 deleteBtn').text('x').attr('id', i);
+
         blockDisplay.append(
             rowDisplay.append(
             hourBlock,
             textBox,
-            saveBtn
+            saveBtn,
+            deleteBtn
             )
         );
         
@@ -58,6 +60,14 @@ function displaySchedule(date) {
         event.preventDefault();
         localStorage.setItem($(this)[0].previousElementSibling.id, $(this)[0].previousElementSibling.value);
     }
+
+    function deleteBlock(event) {
+        event.preventDefault();
+        localStorage.setItem("text" + $(this)[0].id, "");
+        displayInputs();
+    }
+
+    $('.deleteBtn').on('click', deleteBlock);
 
     $('.saveBtn').on('click', addInputs);
     displayInputs();
