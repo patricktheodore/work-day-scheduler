@@ -1,7 +1,7 @@
 //variables
 var blockDisplay = $('#displayContainer');
 var currentTimeDisplayEl = $('#currentTime')
-const clearLocal = $('<button>').addClass('col-4 clearBtn').text('clear.');
+const clearLocal = $('<button>').addClass('col-4 clearBtn').text('reset.');
 const pageDisplay = $('#pageDisplay');
 
 
@@ -23,10 +23,10 @@ function displaySchedule(date) {
 
         //issue - unlimited amount of rows can be entered. undesired. 
         const rowDisplay = $('<div>').addClass('row').attr('id', i); 
-        const hourBlock = $('<p>').addClass('col-1 hour').text(date.format('h a')).attr('id', i);
-        const textBox = $('<textarea>').addClass('col-9 event textarea').attr('id',  'text' + [i]);
-        const saveBtn = $('<button>').addClass('col-1 saveBtn').text('save').attr('id', i);
-        const deleteBtn = $('<button>').addClass('col-1 deleteBtn').text('x').attr('id', i);
+        const hourBlock = $('<p>').addClass('col-1 hour time-block').text(date.format('h a')).attr('id', i);
+        const textBox = $('<textarea>').addClass('col-8 event textarea description').attr('id',  'text' + [i]);
+        const saveBtn = $('<button>').addClass('col-1 saveBtn btn').text('save.').attr('id', i);
+        const deleteBtn = $('<button>').addClass('col-1 deleteBtn btn').text('X').attr('id', i);
 
         blockDisplay.append(
             rowDisplay.append(
@@ -61,6 +61,7 @@ function displaySchedule(date) {
         localStorage.setItem($(this)[0].previousElementSibling.id, $(this)[0].previousElementSibling.value);
     }
 
+    //doesnt work un unrefreshed pages
     function deleteBlock(event) {
         event.preventDefault();
         localStorage.setItem("text" + $(this)[0].id, "");

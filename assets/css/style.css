@@ -1,8 +1,116 @@
 body {
-    font-family: 'Open Sans', sans-serif;
+  font-family: 'Comfortaa', cursive;
+  font-size: 16px;
+    line-height: 1.5;
     font-size: 16px;
-    line-height: 1;
+    font-weight: lighter;
   }
+
+  :root {
+    --dark: black;
+    --light: #e3e8ec;
+    --primary: #5d666b;
+    --secondary: #a7a7a7;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--secondary);
+}
+
+/*custom nan & header imported from portfolio*/
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark);
+    height: 5rem;
+    width: 100%;
+}
+
+main {
+    max-width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header h1 {
+    font-size: 1.75rem;
+    padding: 0 1% 0 2%;
+    font-weight: lighter;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: var(--light);
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+}
+
+.quick-links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+
+.quick-links li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: lighter;
+    padding: 0 1rem;
+    margin-right: 1%;
+}
+
+
+/*aligning anchors to the right margin */
+nav div {
+    margin-right: 3%;
+}
+
+/*changing the color of the link when hovered over*/
+.quick-links li a:hover,
+header h1 a:hover,
+.socials a:hover {
+    color: var(--primary);
+    transform: translateY(-0.1rem);
+    transition: transform 150ms;
+}
+
+.socials {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: var(--light);
+    font-size: 1rem;
+}
+
+.socials a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: lighter;
+    padding: 0 1rem;
+    margin-right: 1%; 
+}
+
+.socials a:hover {
+    cursor: pointer;
+}
+
+/* jQuery elements */
   
   textarea {
     background: transparent;
@@ -17,12 +125,13 @@ body {
     text-align: center;
     background-color: transparent;
     color: black;
-    border-radius: 0;
-    border-bottom: 10px solid black;
+    margin: 2rem 0;
   }
   
   .description {
     white-space: pre-wrap;
+    border-radius: 4px;
+    margin-right: 0.1rem;
   }
   
   .time-block {
@@ -33,17 +142,19 @@ body {
   .row {
     white-space: pre-wrap;
     height: 80px;
-    border-top: 1px solid white;
+    border-top: 1px solid var(--light);
+    margin-bottom: 0.1rem;
   }
   
   .hour {
-    background-color: #ffffff;
+    background-color: var(--light);
     color: #000000;
-    border-top: 1px dashed #000000;
+    align-self: center;
+    border-radius: 4px;
   }
   
   .past {
-    background-color: red;
+    background-color: rgb(133, 13, 13);
     color: white;
   }
   
@@ -57,16 +168,56 @@ body {
     color: black;
   }
   
-  .saveBtn {
-    border-left: 1px solid black;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #06aed5;
-    color: white;
+  .btn {
+    background-color: var(--dark);
+    color: var(--light);
+    cursor: pointer;
+    border: solid 1px var(--dark);
+    font-size: 1rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 0.1rem;
   }
   
-  .saveBtn i:hover {
-    font-size: 20px;
-    transition: all 0.3s ease-in-out;
-  }
+  .saveBtn:hover {
+    background-color: lawngreen;
+    box-shadow: 0 0 5px #999;
+    transform: translateY(-0.1rem);
+    transition: transform 150ms;
+}
+
+.deleteBtn:hover {
+  color: white;
+  background-color: rgb(133, 13, 13);
+  box-shadow: 0 0 5px #999;
+  transform: translateY(-0.1rem);
+  transition: transform 150ms;
+}
+
+#pageDisplay {
+  display: flex;
+  flex-direction: column;
+}
+
+.clearBtn {
+  justify-self: center;
+  align-self: center;
+  background-color: var(--dark);
+  color: var(--light);
+  cursor: pointer;
+  border: solid 1px var(--dark);
+  font-size: 1.5rem;
+  border-radius: 4px;
+  text-align: center;
+  height: 6rem;
+  margin: 1.5rem 0;
+}
+
+.clearBtn:hover {
+  color: white;
+  background-color: rgb(133, 13, 13);
+  box-shadow: 0 0 5px #999;
+  transform: translateY(-0.1rem);
+  transition: transform 150ms;
+}
   
