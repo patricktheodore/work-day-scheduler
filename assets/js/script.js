@@ -1,6 +1,10 @@
 //variables
 var blockDisplay = $('#displayContainer');
 var currentTimeDisplayEl = $('#currentTime')
+const clearLocal = $('<button>').addClass('col-4 clearBtn').text('clear.');
+const pageDisplay = $('#pageDisplay');
+
+
 const today = moment();
 
 var dayRightNow = today.format("dddd, MMMM Do YYYY"); 
@@ -52,7 +56,6 @@ function displaySchedule(date) {
 
     function addInputs(event) {
         event.preventDefault();
-
         localStorage.setItem($(this)[0].previousElementSibling.id, $(this)[0].previousElementSibling.value);
     }
 
@@ -60,11 +63,14 @@ function displaySchedule(date) {
     displayInputs();
 }
 
+function clearLocalStorage() {
+    localStorage.clear();
+    location.reload();
+}
 
-
+pageDisplay.append(clearLocal);
+clearLocal.on('click', clearLocalStorage);
 
 $(window).on("load", displaySchedule());
 
 setInterval(updateTime, 1000);
-
-//todo - add clear all button to bottom. - add clear block option to end of row
