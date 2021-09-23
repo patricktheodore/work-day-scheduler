@@ -16,12 +16,59 @@ function updateTime() {
         currentTimeDisplayEl.text(timeRightNow);
 }
 
+
+
+
+// full disclosure, the below is something I worked on with my tutor to fix an issue i was having with textarea input being to long. 
+// this is outside of my current skill scope, but as it achieved the goal and makes the app behave as intended, I have decided to leave the code in
+
+function countBy(iterable, callback){
+    let count = 0;
+    for (let index = 0; index < iterable.length; index++) {
+        const character = iterable[index];
+        
+        if(callback(character)){
+            count++;
+        }
+    }
+    return count;
+}
+
+function textareaRowLimiter(event){
+    const currentInput = event.target.value;
+    const currentKeystroke = currentInput.slice(-1);
+
+    // check if current keystroke is \n or not
+    if(currentKeystroke !== '\n'){
+        return;
+    }
+
+    // detect the total \n 
+    const count = countBy(currentInput, function(character){
+        return character === '\n';
+    })
+
+    // if total is > 3
+    if(count > 2){
+        // stop the user from adding
+        event.target.value = currentInput.slice(0, currentInput.length - 1)
+    }
+}
+
+$(document).on('input', 'textarea' ,textareaRowLimiter)
+
+//--------------------------
+
+
+
 function displaySchedule(date) {
+    const hourNow = Number(today.format("HH"));
+
+    console.log('hournot', hourNow)
     date = moment().hour(9);
 
     for (let i = 0; i < 9; i++) {
-
-        //issue - unlimited amount of rows can be entered. undesired. 
+ 
         const rowDisplay = $('<div>').addClass('row').attr('id', i); 
         const hourBlock = $('<p>').addClass('col-1 hour time-block').text(date.format('h a')).attr('id', i);
         const textBox = $('<textarea>').addClass('col-8 event textarea description').attr('id',  'text' + [i]);
@@ -36,23 +83,31 @@ function displaySchedule(date) {
             deleteBtn
             )
         );
+
+        const blockHour = i + 9;
         
-        date.add(1, 'hour');
-        
-//issue - the correct hour block is not displaying green. currently 1 hour behind
-        if (today.isBefore(date, 'hour')) {
-            textBox.addClass('future');
-        } else if (today.isAfter(date, 'hour')) {
+        if(hourNow > blockHour){
+            // past
             textBox.addClass('past');
-        } else {
+        }
+        if (hourNow === blockHour){
+            // present
             textBox.addClass('present');
-        }        
+        }
+
+        if(hourNow < blockHour){
+            // future
+            textBox.addClass('future');
+        }
+
+        date.add(1, 'hour');
+      
     }
 
     function displayInputs() {
         for (let i = 0; i < 9; i++) {
             let storedInput = localStorage.getItem('text' + i);
-            $('#text' + i).text(storedInput);
+            $('#text' + i).val(storedInput);
         }
     }
 
@@ -61,7 +116,6 @@ function displaySchedule(date) {
         localStorage.setItem($(this)[0].previousElementSibling.id, $(this)[0].previousElementSibling.value);
     }
 
-    //doesnt work un unrefreshed pages
     function deleteBlock(event) {
         event.preventDefault();
         localStorage.setItem("text" + $(this)[0].id, "");
