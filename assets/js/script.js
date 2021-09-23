@@ -62,13 +62,14 @@ $(document).on('input', 'textarea' ,textareaRowLimiter)
 
 
 function displaySchedule(date) {
-    const hourNow = Number(today.format("HH"));
+    const hourNow = Number(today.format("HH")); //changing to 24 hour format
 
     console.log('hournot', hourNow)
     date = moment().hour(9);
 
     for (let i = 0; i < 9; i++) {
  
+        //assigning each an id equal to i to call upon later in the code
         const rowDisplay = $('<div>').addClass('row').attr('id', i); 
         const hourBlock = $('<p>').addClass('col-1 hour time-block').text(date.format('h a')).attr('id', i);
         const textBox = $('<textarea>').addClass('col-8 event textarea description').attr('id',  'text' + [i]);
@@ -84,7 +85,7 @@ function displaySchedule(date) {
             )
         );
 
-        const blockHour = i + 9;
+        const blockHour = i + 9; //this is where 24 hour format is useful 
         
         if(hourNow > blockHour){
             // past
@@ -104,7 +105,8 @@ function displaySchedule(date) {
       
     }
 
-    function displayInputs() {
+    
+    function displayInputs() { //using previously assigned id's to display stored data from local storage
         for (let i = 0; i < 9; i++) {
             let storedInput = localStorage.getItem('text' + i);
             $('#text' + i).val(storedInput);
@@ -112,11 +114,11 @@ function displaySchedule(date) {
     }
 
     function addInputs(event) {
-        event.preventDefault();
+        event.preventDefault(); //using jquery to traverse the dom into intended html element of text areas
         localStorage.setItem($(this)[0].previousElementSibling.id, $(this)[0].previousElementSibling.value);
     }
 
-    function deleteBlock(event) {
+    function deleteBlock(event) { //adding functionality to delete just a time block instead of manually backspacing or deleting whole page
         event.preventDefault();
         localStorage.setItem("text" + $(this)[0].id, "");
         displayInputs();
@@ -136,6 +138,6 @@ function clearLocalStorage() {
 pageDisplay.append(clearLocal);
 clearLocal.on('click', clearLocalStorage);
 
-$(window).on("load", displaySchedule());
+$(window).on("load", displaySchedule()); //loading data stored in local storage on page load
 
-setInterval(updateTime, 1000);
+setInterval(updateTime, 1000); //updating the time every second
